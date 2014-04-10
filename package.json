@@ -1,0 +1,20 @@
+{
+  "name": "select",
+  "version": "1.8.1",
+  "engines": [
+    "node = 0.10.22"
+  ],
+  "devDependencies": {
+    "grunt": "*",
+    "time-grunt": "^0.2.10",
+    "grunt-notify": "^0.2.20",
+    "matchdep": "^0.3.0",
+    "grunt-contrib-clean": "^0.5.0",
+    "grunt-contrib-coffee": "^0.10.1",
+    "grunt-closurecompiler": "^0.9.9",
+    "grunt-contrib-qunit": "^0.4.0",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-string-replace": "^0.2.7",
+    "grunt-contrib-copy": "^0.5.0"
+  }
+}
