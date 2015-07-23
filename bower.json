@@ -1,0 +1,30 @@
+{
+  "name": "meg-select",
+  "version": "1.8.1",
+  "authors": [
+    "Emiliano Fernandez <emilianohfernandez@gmail.com>"
+  ],
+  "description": "a simple plugin for manage select with select2 integration",
+  "main": "select.coffee",
+  "keywords": [
+    "select",
+    "select2",
+    "meg"
+  ],
+  "license": "MIT",
+  "homepage": "informaticameg.com",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "qunit": "~1.18.0",
+    "select2": "~4.0.0",
+    "coffeescript": "~1.9.3",
+    "chance": "~0.7.6"
+  }
+}
