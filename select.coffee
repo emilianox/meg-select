@@ -1,10 +1,26 @@
 ###*
-@license MEG select vs {{ VERSION }}
+ * @exports meg/select
+ * @namespace select
+ * @version {{ VERSION }}
+ * @license MEG select vs {{ VERSION }}
 Informatica MEG - 2014 Todos los derechos reservados
 ###
 #- DEPENDENCIES = JQUERY 1,7+, SELECT2 3.6+
 select = {}
-###* @expose ###
+
+###*
+ * Load a select with data
+ * @param  {obj} opts Options
+ * @param  {String} opts.widgetname Nombre del select a aplicar.
+ * @param  {boolean} opts.required Avoid fill a default msj.
+ * @param  {obj[]} opts.data Data to prefill in select .
+ * @param  {String} opts.id Atributo de data que es el id del select .
+ * @param  {String} opts.showname Atributo de data que es el nombre del select.
+ * @param  {Function} cb Funcion a la cual llamar cuando termina
+ * @memberof select
+ * @method onlyLoad
+ * @expose
+###
 select.onlyLoad = (opts, cb) ->
   #- depends Jquery
   preoptiontag = "<option value='"
@@ -23,6 +39,9 @@ select.onlyLoad = (opts, cb) ->
   $(opts["widgetname"]).empty().append(options)
   cb(0)
 
+###*
+ * @param  {String} widgetname Nobre del widget a setear.
+###
 select.setID = (widgetname, id, cb =(->)) ->
   #- depends Jquery
   $(widgetname).val id
