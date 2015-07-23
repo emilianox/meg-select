@@ -1,6 +1,6 @@
 test "Testing loadOnly", ->
   HELPERS.CreateSelect (divname, selectname) ->
-    meg.select.onlyLoad selectname, HELPERS.data, "id", "name", ->
+    meg.select.onlyLoad {"widgetname":selectname, "data":HELPERS.data, "id":"id", "showname":"name"}, ->
       @HELPERS.getSelectData selectname, (allValues,allTexts)->
         deepEqual allValues, [ "", "1", "2", "3" ], "Values load correctly"
         deepEqual allTexts, [ "-", "uno", "dos", "tres" ], "Text load correctly"
@@ -8,10 +8,24 @@ test "Testing loadOnly", ->
 
 
   HELPERS.CreateSelect (divname, selectname) ->
-    meg.select.onlyLoad selectname, [], "id", "name", ->
+    meg.select.onlyLoad {"widgetname":selectname, "data":[], "id":"id", "showname":"name"}, ->
       @HELPERS.getSelectData selectname, (allValues,allTexts)->
         deepEqual allValues, [""] , "Empty text load correctly"
         deepEqual allTexts, ["Sin elementos."] , "Empty value load correctly"
+        $(selectname).remove()
+
+  HELPERS.CreateSelect (divname, selectname) ->
+    meg.select.onlyLoad {"widgetname":selectname, "data":[],"required":true, "id":"id", "showname":"name"}, ->
+      @HELPERS.getSelectData selectname, (allValues,allTexts)->
+        deepEqual allValues, [] , "Empty required text load correctly"
+        deepEqual allTexts, [] , "Empty required value load correctly"
+        $(selectname).remove()
+
+  HELPERS.CreateSelect (divname, selectname) ->
+    meg.select.onlyLoad {"widgetname":selectname, "data":[{"id":">=","name":">="}],"required":true, "id":"id", "showname":"name"}, ->
+      @HELPERS.getSelectData selectname, (allValues,allTexts)->
+        deepEqual allValues, [">="] , "Scape text load correctly"
+        deepEqual allTexts, [">="] , "Scape value load correctly"
         $(selectname).remove()
 
 if meg.select.setID
@@ -34,21 +48,21 @@ if meg.select.makeSelect2
         $(selectname).remove()
 
     msg = "Multiple Select2 vacio"
-    HELPERS.CreateInput (divname, inputname) ->
+    HELPERS.CreateSelect (divname, selectname) ->
       $(divname).prepend($('<h4>').text(msg))
-      meg.select.makeSelect2 inputname,{multiple: true}, ->
-        ok $(inputname).data("select2"), msg
+      meg.select.makeSelect2 selectname,{multiple: true}, ->
+        ok $(selectname).data("select2"), msg
         console.warn "Probar "+msg+" manualmente!"
 
     msg = "Multiple with data Select2"
-    HELPERS.CreateInput (divname, inputname) ->
+    HELPERS.CreateSelect (divname, selectname) ->
       $(divname).prepend($('<h4>').text(msg))
-      meg.select.makeSelect2 inputname,
+      meg.select.makeSelect2 selectname,
         multiple: true
         data: HELPERS.data
         showname: "name"
       , ->
-        ok $(inputname).data("select2"), msg
+        ok $(selectname).data("select2"), msg
         console.warn "Probar "+msg+" manualmente!"
 
     msg = "Multiple with data and default into input Select2"
@@ -117,6 +131,7 @@ test "Testing load", ->
         ok $(selectname).data("select2") == undefined, "MOBILE OPTION: Not Simple Select2"
         $(selectname).remove()
 
+  # TODO:
   msg = "Load select multiple with opts"
   HELPERS.CreateInput (divname, inputname)->
     data = [{mujaja: "1",loco: "uno"},

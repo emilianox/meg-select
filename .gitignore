@@ -1,6 +1,7 @@
 /select.last.js
 /select.last.prety.min.js
 /node_modules/*
+/bower_components/*
 /test/select-test.js
 /test/helpers-select-test.js
 /select.last.min.prety.js

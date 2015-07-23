@@ -25,7 +25,7 @@
 
 @HELPERS.loadSelect = (cb) ->
   HELPERS.CreateSelect (divname, selectname) ->
-    meg.select.onlyLoad selectname, HELPERS.data, "id", "name", (err) ->
+    meg.select.onlyLoad {"widgetname":selectname, "data":HELPERS.data, "id":"id", "showname":"name"}, (err) ->
       cb divname, selectname
 
 @HELPERS.getSelectData = (selectName,cb) ->
