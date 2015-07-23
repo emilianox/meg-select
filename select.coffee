@@ -5,27 +5,27 @@ Informatica MEG - 2014 Todos los derechos reservados
 #- DEPENDENCIES = JQUERY 1,7+, SELECT2 3.6+
 select = {}
 ###* @expose ###
-select.onlyLoad = (widgetname, data, id, showname, cb) ->
+select.onlyLoad = (opts, cb) ->
   #- depends Jquery
-  if data.length > 0
-    msg = "-"
-  else
-    msg = "Sin elementos."
-
-  preoptiontag = "<option value="
+  preoptiontag = "<option value='"
   postoptiontag= "</option>"
-  options = "#{preoptiontag}''>#{msg}#{postoptiontag}"
-  
-  for item in data
-    options += "#{preoptiontag}#{item[id]}>#{item[showname]}#{postoptiontag}"
 
-  
-  $(widgetname).empty().append(options)
+  if opts["required"]
+    options = ""
+  else
+    msg = if opts["data"].length > 0 then "-" else "Sin elementos."
+    options = "#{preoptiontag}''>#{msg}#{postoptiontag}"
+
+  for item in opts["data"]
+    options += "#{preoptiontag}#{item[opts['id']]}'>#{item[opts['showname']]}#{postoptiontag}"
+
+
+  $(opts["widgetname"]).empty().append(options)
   cb(0)
 
 select.setID = (widgetname, id, cb =(->)) ->
   #- depends Jquery
-  $(widgetname).val(id);
+  $(widgetname).val id
   cb(0)
 
 select.makeSelect2 = (widgetname, opts ,cb =(->)) ->
@@ -38,6 +38,7 @@ select.makeSelect2 = (widgetname, opts ,cb =(->)) ->
   ###
   #- depends Jquery, Select2
   if opts["multiple"]
+    $(widgetname).prop("multiple":"multiple")
     if !opts["data"]
       opts["data"] = []
     else
@@ -48,18 +49,6 @@ select.makeSelect2 = (widgetname, opts ,cb =(->)) ->
     $(widgetname)["select2"](
       "multiple": true
       "data": opts["data"]
-      "initSelection": (widget, callback) ->
-        selectedElements = []
-        if widget["val"]() isnt ""
-          dataIndexObj = {}
-          for item in opts["data"]
-            dataIndexObj[item.id] = item.text
-          listIdsInInput = widget["val"]()["split"](",")
-          for idInInput in listIdsInInput
-            selectedElements.push 
-              "id": idInInput
-              "text": dataIndexObj[idInInput]
-        callback(selectedElements);
     )
   else
     $(widgetname)["select2"]()
@@ -70,25 +59,32 @@ select.makeSelect2 = (widgetname, opts ,cb =(->)) ->
 
 ###* @expose ###
 select.load = (widgetname, data, opts = {}, cb =(->) ) ->
-  #- data is a JSON
+  #- data is a JSON(list of dicts)
   #- widgetname is a namestring(not a jquery object)
 
   #- the optionss
   #- opts.default  (representa el id que queres que se muestre por defecto)
-  defaultsOptions = 
+  defaultsOptions =
     'id': 'id'
     'showname': 'name'
     'select2': if window["orientation"] is undefined then true else false
     'multiple': false #debe ser un input para que funcione
+    'required':false #rellena sin el - / tira alert si esta vacio
   #- merge options
-  opts = $.extend({},defaultsOptions, opts);
+  opts = $.extend({},defaultsOptions, opts)
+
+  if (opts["required"]) and ((data == []) or (!data?))
+    alert opts["widgetname"] + " esta vacio. Actulize la página para cargar los datos correctamente."
 
   if opts["multiple"]
-      opts["data"]= data
-      select.makeSelect2 widgetname,opts, cb
+    opts["data"]= data
+    select.makeSelect2 widgetname,opts, cb
   else
-    #- TODO: implementar load multiple without select2 $(widgetname).prop("multiple":true)
-    select.onlyLoad widgetname, data, opts["id"], opts["showname"], (err)->
+    #- TODO: implementar load multiple rapido
+    #- without select2 $(widgetname).prop("multiple":true)
+    opts["data"]= data
+    opts["widgetname"]= widgetname
+    select.onlyLoad opts, (err)->
       if opts["default"]
         select.setID(widgetname,opts["default"])
       if opts["select2"]
