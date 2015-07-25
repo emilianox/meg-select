@@ -54,7 +54,7 @@ module.exports = (grunt) ->
         options:
           compilation_level: "ADVANCED_OPTIMIZATIONS"
           max_processes: 5
-          externs: ["bower_components/jquery/dist/jquery.js"]
+          externs: ["externs_closure/jquery.js"]
           # banner: "/* hello world! */"
       pretymin:
         files:
