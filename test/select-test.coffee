@@ -28,17 +28,6 @@ test "Testing loadOnly", ->
         deepEqual allTexts, [">="] , "Scape value load correctly"
         $(selectname).remove()
 
-if meg.select.setID
-  test "Testing setID", ->
-    HELPERS.loadSelect (divname, selectname) ->
-      meg.select.setID selectname, "1", (err) ->
-        equal $(selectname).val() , "1", "SetID correctly"
-
-      meg.select.setID selectname, "", (err) ->
-        equal $(selectname).val() , "", "SetID empty correctly"
-
-      $(selectname).remove()
-
 if meg.select.makeSelect2
   test "Testing makeSelect2", ->
     HELPERS.CreateSelect (divname, selectname) ->
@@ -104,7 +93,7 @@ test "Testing load", ->
         deepEqual allValues, [ "", "1", "2", "3" ], "LOAD with OPTION:Values load correctly"
         deepEqual allTexts, [ "-", "uno", "dos", "tres" ], "LOAD with OPTION:Text load correctly"
         deepEqual allTexts, [ "-", "uno", "dos", "tres" ], "LOAD with OPTION:Text load correctly"
-        ok $(selectname).val() is "2", "LOAD with OPTION:SetID seted correctly"
+        equal $(selectname).val() , "2", "LOAD with OPTION:SetID seted correctly"
         ok $(selectname).data("select2"), "LOAD with OPTION:Select2 exist"
 
         $(selectname).select2 "destroy"
@@ -127,7 +116,7 @@ test "Testing load", ->
         deepEqual allValues, [ "", "1", "2", "3" ], "MOBILE OPTION:Values load correctly"
         deepEqual allTexts, [ "-", "uno", "dos", "tres" ], "MOBILE OPTION:Text load correctly"
         deepEqual allTexts, [ "-", "uno", "dos", "tres" ], "MOBILE OPTION:Text load correctly"
-        ok $(selectname).val() is "2", "MOBILE OPTION:SetID seted correctly"
+        equal $(selectname).val() , "2", "MOBILE OPTION:SetID seted correctly"
         ok $(selectname).data("select2") == undefined, "MOBILE OPTION: Not Simple Select2"
         $(selectname).remove()
 

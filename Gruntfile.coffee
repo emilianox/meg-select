@@ -19,10 +19,12 @@ module.exports = (grunt) ->
     cf: myConfig
     pkg: pkg
 
-    coffee : 
+    coffee :
       main:
         files:
           '<%= cf.mainCompiledScript %>': '<%= cf.mainScript %>'
+        options:
+          bare:true
       mainTest:
         files:
           '<%= cf.testCompiledScript %>': '<%= cf.testScript %>'
@@ -52,7 +54,7 @@ module.exports = (grunt) ->
         options:
           compilation_level: "ADVANCED_OPTIMIZATIONS"
           max_processes: 5
-          externs: ["vendor/externs/jquery.1.9.js"]
+          externs: ["externs_closure/jquery.js"]
           # banner: "/* hello world! */"
       pretymin:
         files:
@@ -61,9 +63,9 @@ module.exports = (grunt) ->
           compilation_level: "ADVANCED_OPTIMIZATIONS"
           Formatting: "PRETTY_PRINT",
           max_processes: 5
-          externs: ["vendor/externs/jquery.1.9.js"]
+          externs: ["externs_closure/jquery.js"]
           # banner: "/* hello world! */"
-       
+
     qunit:
       unminimized: [ '<%= cf.testUnminimizedHtml %>' ]
       minimized: [ '<%= cf.testMinimizedHtml %>' ]
