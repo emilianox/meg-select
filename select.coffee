@@ -11,12 +11,15 @@
  * @namespace select
  * @version {{ VERSION }}
  * @author Emiliano Fernandez (emilianohfernandez@gmail.com)
- * @license MEG select vs {{ VERSION }}
  * @requires JQuery
  * @requires Select2
-    Informatica MEG - 2014 Todos los derechos reservados
+ * @license MEG select vs {{ VERSION }}
+    Copyright 2015 Emiliano Fernandez
+    This program is free software; you can redistribute it and/or
+    modify it under the terms of the GNU General Public License
+    as published by the Free Software Foundation; either version 2
+    of the License, or (at your option) any later version.
 ###
-#- DEPENDENCIES = JQUERY 1,7+, SELECT2 3.6+
 select = {}
 
 ###*
