@@ -66,7 +66,7 @@ select.onlyLoad = (opts, cb) ->
  * @param {select~endCallback=} cb Callback function.
  * @requires JQuery
  * @requires Select2
- *
+ * @private
 ###
 select.makeSelect2 = (widgetname, opts ,cb =(->)) ->
   if opts["multiple"]
